@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  my-backend:
+    environment:
+      - DEBUG=False
+    restart: always
+
+  postgres:
+    restart: always
+
+  nginx:
+    restart: always

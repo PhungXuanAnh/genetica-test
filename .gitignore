@@ -1,0 +1,8 @@
+.venv
+__pycache__
+tmp.py
+db.sqlite3
+.DS_Store
+# env_file
+nginx/*
+logs/*
