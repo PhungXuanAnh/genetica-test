@@ -16,10 +16,10 @@ for _ in range(0, 1):
         processing_status=GeneStatus.PENDING,
         location=GeneLocation.GENETICA
     )
-    # GeneActivity.objects.create(
-    #     gene_sample=gene,
-    #     type=GeneActivityType.PENDING_AT_GENETICA
-    # )
+    GeneActivity.objects.create(
+        gene_sample=gene,
+        type=GeneActivityType.PENDING_AT_GENETICA
+    )
     print(gene)
     print(gene.id)
     print(gene.last_activity)

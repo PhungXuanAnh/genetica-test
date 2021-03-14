@@ -7,6 +7,12 @@ from django.utils.translation import ugettext_lazy as _
 class Gene(models.Model):
     processing_status = models.IntegerField(choices=GeneStatus.choices())
     location = models.IntegerField(choices=GeneLocation.choices())
+    created_at = models.DateTimeField(
+        verbose_name=_("created at"),
+        default=timezone.now,
+        editable=False,
+        help_text=_("Created at."),
+    )
     
     @property
     def last_activity(self):
