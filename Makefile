@@ -35,18 +35,18 @@ docker-rm-old-data:
 	sleep 3
 
 docker-migrate:
-	docker exec django-rest-framework-sample_my-backend_1 python3 manage.py migrate
+	docker exec genetica-test_my-backend_1 python3 manage.py migrate
 
 docker-makemigrations:
-	docker exec django-rest-framework-sample_my-backend_1 python3 manage.py makemigrations
+	docker exec genetica-test_my-backend_1 python3 manage.py makemigrations
 
 docker-create-supperuser:
-	docker exec django-rest-framework-sample_my-backend_1 python3 manage.py shell -c "from django.contrib.auth.models import User; \
+	docker exec genetica-test_my-backend_1 python3 manage.py shell -c "from django.contrib.auth.models import User; \
 								User.objects.filter(username='admin').exists() or \
 								User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
 
 docker-create-sample-data: docker-rm-old-data docker-migrate docker-makemigrations docker-create-supperuser
-	docker exec django-rest-framework-sample_my-backend_1 python3 create_sample_data.py
+	docker exec genetica-test_my-backend_1 python3 create_sample_data.py
 
 # ================================ test get user =========================================
 user-get:
