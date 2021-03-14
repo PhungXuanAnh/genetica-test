@@ -21,6 +21,7 @@ from swagger.views import schema_view as swagger_view
 api_v1_urls = [
     path("api/v1/", include("music.urls")),
     path("api/v1/", include("user.urls")),
+    path("api/v1/", include("gene.urls")),
 ]
 
 urlpatterns = [

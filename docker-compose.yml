@@ -10,7 +10,7 @@ services:
     networks:
       - internal-network
     ports:
-      - 8027:8027
+      - 8091:8091
     depends_on:
       - postgres
     logging:

@@ -52,6 +52,7 @@ This is initial code for create sample codes in in django rest framework
 - [11. Add nginx configs](#11-add-nginx-configs)
   - [11.1. Config for http only](#111-config-for-http-only)
   - [11.2. Config for https](#112-config-for-https)
+  - [Phân tích hệ thống dựa theo yêu cầu bài test](#phân-tích-hệ-thống-dựa-theo-yêu-cầu-bài-test)
 
 # 1. setup environment
 
@@ -96,17 +97,17 @@ make run
 
 ## 3.1. Access swagger
 
-http://127.0.0.1:8027/swagger/
+http://127.0.0.1:8091/swagger/
 
 ## 3.2. Access admin site
 
-http://127.0.0.1:8027/admin
+http://127.0.0.1:8091/admin
 
 Account as above: admin/admin
 
 ## 3.3. Access users/groups apis
 
-http://127.0.0.1:8027/api/v1
+http://127.0.0.1:8091/api/v1
 
 login by above account: admin/admin
 
@@ -127,7 +128,7 @@ make user-get
 make makemigrations
 make migrate
 ```
-access: http://127.0.0.1:8027/swagger/
+access: http://127.0.0.1:8091/swagger/
 
 ## 4.2. Views
 ### 4.2.1. musican-api-views
@@ -632,3 +633,61 @@ Test command:
 ```shell
 make user-get-via-nginx-https
 ```
+
+## Phân tích hệ thống dựa theo yêu cầu bài test 
+
+Đối tượng cần phân tích trạng thái là : mẫu xét nghiệm gen của khách hàng
+
+Các đối tượng người dùng sẽ tương tác với đối tượng cần phân tích trên là :
+
+    Nhân viên kho hàng của Genetica
+    Nhân viên Hanoi Lab
+    Nhân viên USA Lab
+    Nhân viên Shipping department 
+
+Giải thích biểu đồ trạng thái trên :
+
+- Trạng thái bắt đầu : Pending at Genetica: là trạng thái hình thành khi khách hàng mới gửi mẫu xét nghiệm đến Genetica.
+- Pending at Hanoi lab: là trạng thái hình thành khi Genetica gửi 1 mẫu mới đến Hanoi lab.
+- Verified at Hanoi lab: là trạng thái hình thành khi Hanoi lab hoàn thành kiểm định mẫu xét nghiệm.
+Verified at Genetica: là trạng thái hình thành khi Hanoi lab gửi mẫu xét nghiệm đã kiểm định cho Genetica.
+- Packaged at Genetica: là trạng thái hình thành khi Genetica đã hoàn thành đóng gói mẫu xét nghiệm đã được kiểm định.
+- Package at Shipping department: là trạng thái hình thành khi genetica đã gửi mẫu xét nghiệm đã được đóng gói cho bộ phận vận chuyển.
+- Packaged at USA lab : là trạng thái hình thành khi bộ phận USA lab đã nhận được gói xét nghiệm từ bộ phận vận chuyển.
+- Extracted at USA lab : là trạng thái hình thành khi USA lab hoàn thành chiết tách mẫu xét nghiệm.
+- Decoded at USA lab : là trạng thái hình thành khi USA lab hoàn thành giải mã gen cho mẫu xét nghiệm.
+- Decoded at Genetica : là trạng thái hình thành khi Genetica nhận được mẫu xét nghiệm đã được giải mã từ USA lab.
+- Trạng thái kết thúc, có 2 khả năng dẫn đến kết thúc quá trình xử lý của 1 mẫu xét nghiệm
+  - decoded at genetica: mẫu xét nghiệm đã được giải mã và đang lưu trữ tại genetica
+  - cancel : mẫu xét nghiệm bị hủy vì bị lỗi quá 2 lần trong bất cứ thao tác xử lý nào với nó.
+
+
+Dựa vào biểu đồ trạng thái hoạt động trên ta thấy rằng 1 trạng thái hoạt động của 1 mẫu gen phụ thuộc vào
+2 thuộc tính: trạng thái đã được xử lý của mẫu xét nghiệm đó (*proccessing_status*), và vị trí nó đang được lưu trữ (*location*). 
+Vì vậy ta thiết kế database model cho Gene có 2 thuộc tính trên với các giá trị mà nó có thể nhận được là :
+
+    location : genetica warehouse, hanoi lab, shipping company, usa lab
+    status : pending, verified, extracted, packaged, decoded, canceled
+
+và các hành động mà người dùng sẽ tương tác với mẫu xét nghiệm là: 
+
+    verify
+    extract
+    package
+    decode 
+    send to genetica warehouse
+    send to hanoi lab
+    send to USA lab
+    send to shipping company
+
+Vì vậy ta sẽ cần thêm 1 database model để lưu trữ trạng thái của các hành động này : 
+
+**Ví dụ vận hành quy trình trên :**
+
+Nhân viên GWH cập nhật status của mẫu xét nghiệm là Intransit to Hanoi lab, sau đo gửi mẫu xét nghiệm cho đơn vị vận chuyển bên ngoài
+
+Vận chuyển lỗi, trả lại hàng cho GWH
+Nhân viên GWH cập nhật status của mẫu xét nghiệm là Intransit to Hanoi lab lần 2, sau đo gửi mẫu xét nghiệm cho đơn vị vận chuyển bên ngoài
+
+Vận chuyển lỗi, trả lại hàng cho GWH
+Lúc viên GWH chỉ có 1 lựa chọn còn lại duy nhất là cập nhật status của mẫu xét nghiệm là bị Canceled at GWH 
