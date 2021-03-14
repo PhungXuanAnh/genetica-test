@@ -45,7 +45,7 @@ docker-create-supperuser:
 								User.objects.filter(username='admin').exists() or \
 								User.objects.create_superuser('admin', 'admin@example.com', 'admin')"
 
-docker-create-sample-data: docker-rm-old-data docker-migrate docker-makemigrations docker-create-supperuser
+docker-create-sample-data: docker-rm-old-data docker-makemigrations docker-migrate docker-create-supperuser
 	docker exec genetica-test_my-backend_1 python3 create_sample_data.py
 
 # ================================ test get user =========================================
