@@ -98,7 +98,7 @@ DATABASES = {
         'USER': env("POSTGRES_USER", default='postgres'),
         'PASSWORD': env("POSTGRES_PASSWORD", default='123456'),
         'HOST': env("POSTGRES_HOST", default='localhost'),
-        'PORT': env("POSTGRES_PORT", default=5432),
+        'PORT': env("POSTGRES_PORT", default=5433),
     }
 }
 

@@ -23,7 +23,7 @@ services:
     env_file: env_file
     image: postgres:10
     ports:
-      - 5432:5432
+      - 5433:5432
     networks:
       - internal-network
     volumes:
