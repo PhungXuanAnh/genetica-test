@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Gene(models.Model):
+    owner = models.CharField(max_length=100, null=True, blank=True)
     processing_status = models.IntegerField(choices=GeneStatus.choices())
     location = models.IntegerField(choices=GeneLocation.choices())
     created_at = models.DateTimeField(

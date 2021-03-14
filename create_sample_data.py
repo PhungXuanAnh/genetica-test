@@ -10,9 +10,10 @@ django.setup()
 from gene.models import Gene, GeneActivity
 from gene.enums import GeneActivityType, GeneLocation, GeneStatus
 
-
-for _ in range(0, 1):
+names = ["Nguyen Van A", "Nguyen Van B", "Nguyen Van C"]
+for name in names:
     gene = Gene.objects.create(
+        owner=name,
         processing_status=GeneStatus.PENDING,
         location=GeneLocation.GENETICA
     )
@@ -20,6 +21,3 @@ for _ in range(0, 1):
         gene_sample=gene,
         type=GeneActivityType.PENDING_AT_GENETICA
     )
-    print(gene)
-    print(gene.id)
-    print(gene.last_activity)

@@ -691,3 +691,8 @@ Nhân viên GWH cập nhật status của mẫu xét nghiệm là Intransit to H
 
 Vận chuyển lỗi, trả lại hàng cho GWH
 Lúc viên GWH chỉ có 1 lựa chọn còn lại duy nhất là cập nhật status của mẫu xét nghiệm là bị Canceled at GWH 
+
+http://52.220.204.132:8091/admin
+admin/admin
+
+http://52.220.204.132:8091/swagger

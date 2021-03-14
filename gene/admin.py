@@ -11,8 +11,8 @@ class GeneActivityInline(admin.StackedInline):
     extra = 0
 
 class GeneAdmin(admin.ModelAdmin):
-    fields = ['location', 'processing_status']
-    list_display = ("id", "location", "processing_status")
+    fields = ["owner", 'location', 'processing_status']
+    list_display = ("owner", "location", "processing_status")
     inlines = [GeneActivityInline]
 
 
