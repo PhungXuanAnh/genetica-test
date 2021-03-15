@@ -163,6 +163,7 @@ make docker-migrate
 make docker-create-supperuser
 make docker-create-sample-data
 ```
+
 ## 2.3. Access swagger
 
 http://127.0.0.1:8091/swagger/
