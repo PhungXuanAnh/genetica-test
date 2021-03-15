@@ -11,7 +11,7 @@ from gene.models import Gene, GeneActivity
 from gene.serializers import GeneSerializer, GeneActivitySerializer
 from gene.enums import *
 
-
+# TODO: using transaction when update 2 table Gene and GeneActivity
 class GenelViewSet(viewsets.ModelViewSet):
     queryset = Gene.objects.all()
     serializer_class = GeneSerializer
