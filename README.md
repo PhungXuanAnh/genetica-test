@@ -171,7 +171,7 @@ Account as above: admin/admin
 
 # 3. Ví dụ vận hành quy trình trên bằng admin django cho 2 trường hợp xử lý thành công và xử lý thất bại mẫu xét nghiệm gene 
 
-**CHÚ Ý :** logic giới hạn việc chuyển từ trạng thái này sang trạng thái khác chỉ được thực hiện trong các api, chưa được thực hiện trong django admin, vì vậy ta sẽ có thể  lựa chọn tùy ý giá trị cho 2 thuộc tính `location` và `processing_status` trên django admin. Django admin chỉ để mô phỏng việc vận hành quy trình trên từ phía các nhân viên genetica.
+**CHÚ Ý :** logic giới hạn việc chuyển từ trạng thái này sang trạng thái khác chỉ được thực hiện trong các api, chưa được thực hiện trong django admin, vì vậy ta sẽ có thể  lựa chọn tùy ý giá trị cho 2 thuộc tính `location` và `processing_status` trên django admin. Hiện tại, Django admin chỉ để mô phỏng việc vận hành quy trình trên từ phía các nhân viên Genetica.
 
 ## 3.1. Mẫu xét nghiệm được xử lý thành công
 

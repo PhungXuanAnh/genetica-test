@@ -8,7 +8,7 @@ class GeneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Gene
-        fields = ['id', 'processing_status', 'location']
+        fields = ['id', 'processing_status', 'location', "owner"]
 
 
 class GeneActivitySerializer(serializers.ModelSerializer):
