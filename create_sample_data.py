@@ -19,5 +19,5 @@ for name in names:
     )
     GeneActivity.objects.create(
         gene_sample=gene,
-        type=GeneActivityType.PENDING_AT_GENETICA
+        type=GeneActivityType.CREATE
     )

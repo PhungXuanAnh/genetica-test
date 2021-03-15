@@ -28,7 +28,7 @@ class GeneLocation(BaseEnum):
 
 
 class GeneActivityType(BaseEnum):
-    PENDING_AT_GENETICA = 0
+    CREATE = 0
     VERIFY = 1
     EXTRACT = 2
     PACKAGE = 3
