@@ -17,7 +17,7 @@ class Gene(models.Model):
     
     @property
     def last_activity(self):
-        return GeneActivity.objects.filter(gene_sample=self).first()
+        return GeneActivity.objects.filter(gene_sample=self).order_by('created_at').first()
 
 class GeneActivity(models.Model):
     gene_sample = models.ForeignKey(Gene, on_delete=models.CASCADE, null=False)
