@@ -85,7 +85,7 @@ class GenelViewSet(viewsets.ModelViewSet):
                 data=GeneSerializer(instance).data, status=status.HTTP_200_OK
             )
         return Response(
-            data="Gene sample is not pending status or not in Genetica",
+            data="Gene sample is not verified status or not in Genetica",
             status=status.HTTP_400_BAD_REQUEST,
         )
 
