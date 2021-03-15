@@ -4,9 +4,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
 from rest_framework import status
+from rest_framework.serializers import Serializer
+from drf_yasg.utils import swagger_auto_schema
 
 from gene.models import Gene, GeneActivity
-from gene.serializers import GeneSerializer
+from gene.serializers import GeneSerializer, GeneActivitySerializer
 from gene.enums import *
 
 
@@ -15,6 +17,10 @@ class GenelViewSet(viewsets.ModelViewSet):
     serializer_class = GeneSerializer
     # permission_classes = [permissions.IsAuthenticated]
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+    )
     @action(detail=True, methods=["put"])
     def verify(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -35,6 +41,10 @@ class GenelViewSet(viewsets.ModelViewSet):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+    )
     @action(detail=True, methods=["put"])
     def extract(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -55,6 +65,10 @@ class GenelViewSet(viewsets.ModelViewSet):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+    )
     @action(detail=True, methods=["put"])
     def package(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -75,6 +89,10 @@ class GenelViewSet(viewsets.ModelViewSet):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+    )
     @action(detail=True, methods=["put"])
     def decode(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -175,6 +193,10 @@ class GenelViewSet(viewsets.ModelViewSet):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+    )
     @action(detail=True, methods=["put"])
     def cancel(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -190,18 +212,30 @@ class GenelViewSet(viewsets.ModelViewSet):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+    @swagger_auto_schema(
+        request_body=Serializer,
+        responses={status.HTTP_202_ACCEPTED: GeneActivitySerializer()},
+    )
     @action(detail=True, methods=["post"])
     def activity(self, request, *args, **kwargs):
         instance = self.get_object()
         activity_type = request.data["activity_type"]
         if instance.last_activity and instance.last_activity.type == activity_type:
             instance.last_activity.attempts = 2
+            instance.save()
+            return Response(
+                data=GeneActivitySerializer(instance.last_activity).data,
+                status=status.HTTP_200_OK,
+            )
         else:
-            __ = GeneActivity.objects.create(
+            gene_activity = GeneActivity.objects.create(
                 type=activity_type, gene_sample_id=instance.id, attempts=1
             )
-        instance.save()
-        return Response(
-            data=GeneSerializer(instance).data,
-            status=status.HTTP_200_OK,
-        )
+            return Response(
+                data=GeneActivitySerializer(gene_activity).data,
+                status=status.HTTP_200_OK,
+            )
+
+class GenelActivityViewSet(viewsets.ModelViewSet):
+    queryset = GeneActivity.objects.all()
+    serializer_class = GeneActivitySerializer
