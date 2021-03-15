@@ -139,13 +139,13 @@ Hoặc setup trên local theo hướng dẫn bên dưới
 ## 2.1. setup environment
 
 ```shell
-python version: 3.8.0
 ubuntu: 20.04
 docker: Docker version 20.10.3, build 48d30b5
 docker-compose version 1.26.0, build d4451659
+python version: 3.8.0
 ```
 
-cài đặt các packages cho môi trường phát triển
+cài đặt các packages cho môi trường phát triển:
 
 ```shell
 pip install -r requirements.txt
@@ -172,7 +172,7 @@ http://127.0.0.1:8091/swagger/
 
 http://127.0.0.1:8091/admin
 
-Account as above: admin/admin
+Account: admin/admin
 
 
 # 3. Ví dụ vận hành quy trình trên bằng admin django cho 2 trường hợp xử lý thành công và xử lý thất bại mẫu xét nghiệm gene 
