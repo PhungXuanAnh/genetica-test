@@ -157,6 +157,7 @@ Chạy các lệnh sau trên terminal :
 
 ```shell
 cd genetica-test
+docker-compose build
 docker-compose up -d
 make docker-makemigrations
 make docker-migrate
