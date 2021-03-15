@@ -73,7 +73,7 @@ class GenelViewSet(viewsets.ModelViewSet):
     def package(self, request, *args, **kwargs):
         instance = self.get_object()
         if (
-            instance.processing_status == GeneStatus.PENDING
+            instance.processing_status == GeneStatus.VERIFIED
             and instance.location == GeneLocation.GENETICA
         ):
             instance.processing_status = GeneStatus.PACKAGED
