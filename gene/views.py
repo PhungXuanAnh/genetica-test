@@ -11,7 +11,7 @@ from gene.models import Gene, GeneActivity
 from gene.serializers import GeneSerializer, GeneActivitySerializer
 from gene.enums import *
 
-# TODO: using transaction when update 2 table Gene and GeneActivity
+# TODO: using transaction when update 2 table Gene and Gene
 class GenelViewSet(viewsets.ModelViewSet):
     queryset = Gene.objects.all()
     serializer_class = GeneSerializer
@@ -19,7 +19,7 @@ class GenelViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         request_body=Serializer,
-        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+        responses={status.HTTP_200_OK: GeneSerializer()},
     )
     @action(detail=True, methods=["put"])
     def verify(self, request, *args, **kwargs):
@@ -43,7 +43,7 @@ class GenelViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         request_body=Serializer,
-        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+        responses={status.HTTP_200_OK: GeneSerializer()},
     )
     @action(detail=True, methods=["put"])
     def extract(self, request, *args, **kwargs):
@@ -67,7 +67,7 @@ class GenelViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         request_body=Serializer,
-        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+        responses={status.HTTP_200_OK: GeneSerializer()},
     )
     @action(detail=True, methods=["put"])
     def package(self, request, *args, **kwargs):
@@ -91,7 +91,7 @@ class GenelViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         request_body=Serializer,
-        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+        responses={status.HTTP_200_OK: GeneSerializer()},
     )
     @action(detail=True, methods=["put"])
     def decode(self, request, *args, **kwargs):
@@ -195,7 +195,7 @@ class GenelViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         request_body=Serializer,
-        responses={status.HTTP_202_ACCEPTED: GeneSerializer()},
+        responses={status.HTTP_200_OK: GeneSerializer()},
     )
     @action(detail=True, methods=["put"])
     def cancel(self, request, *args, **kwargs):
