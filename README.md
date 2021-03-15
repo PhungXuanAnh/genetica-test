@@ -145,13 +145,18 @@ docker: Docker version 20.10.3, build 48d30b5
 docker-compose version 1.26.0, build d4451659
 ```
 
+cài đặt các packages cho môi trường phát triển
+
 ```shell
 pip install -r requirements.txt
 ```
 
 ## 2.2. Run server and migrate database
 
+Chạy các lệnh sau trên terminal :
+
 ```shell
+cd genetica-test
 docker-compose up -d
 make docker-makemigrations
 make docker-migrate
