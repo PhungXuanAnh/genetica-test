@@ -14,4 +14,5 @@ class GeneSerializer(serializers.ModelSerializer):
 class GeneActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = GeneActivity
-        fields = ['id', 'gene_sample_id', 'type', 'attempts']
+        fields = ['id', 'gene_sample', 'type', 'attempts', 'created_by']
+        

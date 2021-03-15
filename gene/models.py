@@ -20,7 +20,7 @@ class Gene(models.Model):
         return GeneActivity.objects.filter(gene_sample=self).first()
 
 class GeneActivity(models.Model):
-    gene_sample = models.ForeignKey(Gene, on_delete=models.CASCADE)
+    gene_sample = models.ForeignKey(Gene, on_delete=models.CASCADE, null=False)
     created_at = models.DateTimeField(
         verbose_name=_("created at"),
         default=timezone.now,

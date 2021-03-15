@@ -236,6 +236,7 @@ class GenelViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_200_OK,
             )
 
-class GenelActivityViewSet(viewsets.ModelViewSet):
+class GeneActivityViewSet(viewsets.ModelViewSet):
     queryset = GeneActivity.objects.all()
     serializer_class = GeneActivitySerializer
+    http_method_names = ["post", "get"]
